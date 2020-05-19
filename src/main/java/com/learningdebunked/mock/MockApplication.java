@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MockApplication {
     public static void main(String[] args) {
         SpringApplication.run(MockApplication.class, args);
+        System.out.println("running the bare metal");
     }
 
 }
