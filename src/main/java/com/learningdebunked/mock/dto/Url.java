@@ -1,5 +1,8 @@
 package com.learningdebunked.mock.dto;
 
+/**
+ * Class to expose the URL attributes
+ */
 public class Url {
 
     private String protocol; //https or http

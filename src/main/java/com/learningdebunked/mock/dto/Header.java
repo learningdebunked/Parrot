@@ -1,8 +1,5 @@
 package com.learningdebunked.mock.dto;
 
-import java.util.List;
-import java.util.Map;
-
 public class Header {
 
   private String key;
