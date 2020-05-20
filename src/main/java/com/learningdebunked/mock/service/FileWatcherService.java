@@ -17,5 +17,7 @@ public class FileWatcherService {
     public  void monitor(){
         System.out.println("monitor in place");
         System.out.println("dirUrl" + dirUrl);
+
+        //TODO watch the directory and drop the files on a kafka topic to be picked by a consumer
     }
 }
