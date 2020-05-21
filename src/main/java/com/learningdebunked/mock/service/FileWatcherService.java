@@ -24,6 +24,10 @@ public class FileWatcherService {
     public void monitor() {
         try {
             System.out.println("***** Directory being monitored is:********" + dirUrl);
+
+            //TODO checkifDirExists , this can be an aspect
+            //TOO another aspect could be if the directory exists and if the mode is dev mode , we need to validate if the files are valid json , if not send an email to the the developer
+            //sending an email can also be an after returning aspect , sending an event , either email or slack notification
             if (checkIfFilesExist(dirUrl)) {
 
                 //TODO also need to check if its first time setup , if yes and if the production mode is true we can push these templates to production db
@@ -65,6 +69,7 @@ public class FileWatcherService {
             for (WatchEvent<?> event : key.pollEvents()) {
                 if (event.context().toString().endsWith(".template")) {
                     //print the file contents
+                    //use the json validator as an aspect that should get executed while we publish all files to the database
                     validateJson(new String(Files.readAllBytes(Paths.get(path + "/" + event.context().toString()))));
                 }
             }
@@ -72,6 +77,12 @@ public class FileWatcherService {
         }
     }
 
+    /**
+     * Method to validate if the json in the template file is a valid json
+     *
+     * @param json as string in the template file
+     * @return true if the string is a valid json else false
+     */
     private boolean validateJson(String json) {
         try {
             final ObjectMapper mapper = new ObjectMapper();
