@@ -1,11 +1,14 @@
 package com.learningdebunked.mock.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.learningdebunked.mock.processor.FileProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author Kapil
@@ -18,18 +21,23 @@ public class FileWatcherService {
     @Value("${dir.url}")
     String dirUrl;
 
+    @Autowired
+    FileProcessor fileProcessor;
+
     /**
      * Method that monitors a given director and flushe all valid json templates to the inmemory database
      */
     public void monitor() {
         try {
             System.out.println("***** Directory being monitored is:********" + dirUrl);
-
             //TODO checkifDirExists , this can be an aspect
             //TOO another aspect could be if the directory exists and if the mode is dev mode , we need to validate if the files are valid json , if not send an email to the the developer
             //sending an email can also be an after returning aspect , sending an event , either email or slack notification
             if (checkIfFilesExist(dirUrl)) {
-
+                //TODO decide if u want to use Executors.newWorkStealingPool(10) instead of fixed thread pool
+                ExecutorService pool = Executors.newFixedThreadPool(10);
+                fileProcessor.processFolder(pool, dirUrl);
+                //TODO creat multiple threads that reads different files
                 //TODO also need to check if its first time setup , if yes and if the production mode is true we can push these templates to production db
                 //TODO read the existing templates and publish them into the database.
                 //need to lock the directory on the server such that the templates are not modified , otherwise updated templates are not saved or could be saved twice
@@ -48,6 +56,12 @@ public class FileWatcherService {
         }
     }
 
+    /**
+     * If there are existing templates , in dev mode we want all this to be flushed to the in memory database
+     *
+     * @param dirUrl
+     * @return
+     */
     private boolean checkIfFilesExist(String dirUrl) {
         return false;
     }
@@ -70,26 +84,14 @@ public class FileWatcherService {
                 if (event.context().toString().endsWith(".template")) {
                     //print the file contents
                     //use the json validator as an aspect that should get executed while we publish all files to the database
-                    validateJson(new String(Files.readAllBytes(Paths.get(path + "/" + event.context().toString()))));
+                    if(fileProcessor.validateJson(new String(Files.readAllBytes(Paths.get(path + "/" + event.context().toString()))))){
+                        System.out.println("Modified file is a valid json");
+                        System.out.println(new String(Files.readAllBytes(Paths.get(path + "/" + event.context().toString()))));
+                    }
                 }
             }
             key.reset();
         }
     }
 
-    /**
-     * Method to validate if the json in the template file is a valid json
-     *
-     * @param json as string in the template file
-     * @return true if the string is a valid json else false
-     */
-    private boolean validateJson(String json) {
-        try {
-            final ObjectMapper mapper = new ObjectMapper();
-            mapper.readTree(json);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
 }
