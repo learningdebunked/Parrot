@@ -25,10 +25,13 @@ public class FileWatcherService {
     FileProcessor fileProcessor;
 
     /**
-     * Method that monitors a given director and flushe all valid json templates to the inmemory database
+     * Method that monitors a given director and flush all valid json templates to the in memory database
      */
     public void monitor() {
         try {
+
+            //monitor the files and  call the propogations service
+            //validations can all be aspects
             System.out.println("***** Directory being monitored is:********" + dirUrl);
             //TODO checkifDirExists , this can be an aspect
             //TOO another aspect could be if the directory exists and if the mode is dev mode , we need to validate if the files are valid json , if not send an email to the the developer
@@ -37,7 +40,6 @@ public class FileWatcherService {
                 //TODO decide if u want to use Executors.newWorkStealingPool(10) instead of fixed thread pool
                 ExecutorService pool = Executors.newFixedThreadPool(10);
                 fileProcessor.processFolder(pool, dirUrl);
-                //TODO creat multiple threads that reads different files
                 //TODO also need to check if its first time setup , if yes and if the production mode is true we can push these templates to production db
                 //TODO read the existing templates and publish them into the database.
                 //need to lock the directory on the server such that the templates are not modified , otherwise updated templates are not saved or could be saved twice
@@ -82,16 +84,10 @@ public class FileWatcherService {
         while ((key = watchService.take()) != null) {
             for (WatchEvent<?> event : key.pollEvents()) {
                 if (event.context().toString().endsWith(".template")) {
-                    //print the file contents
-                    //use the json validator as an aspect that should get executed while we publish all files to the database
-                    if(fileProcessor.validateJson(new String(Files.readAllBytes(Paths.get(path + "/" + event.context().toString()))))){
-                        System.out.println("Modified file is a valid json");
-                        System.out.println(new String(Files.readAllBytes(Paths.get(path + "/" + event.context().toString()))));
-                    }
+                    fileProcessor.process(filePath,event.context().toString());
                 }
             }
             key.reset();
         }
     }
-
 }
