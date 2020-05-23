@@ -20,10 +20,4 @@ public class MockAPIController implements MockAPI {
         System.out.println("The request URL is:" + request.getRequestURL());*/
         return "Kapil";
     }
-
-    @Override
-    public String getResponse1() {
-        System.out.println("*******************Testing************");
-        return "Reddy";
-    }
 }

@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 public interface MockAPI {
 
-    @GetMapping("/mock/v1/*")
+    @GetMapping("/mock/v1/")
     String getResponse();
 
-    @GetMapping("/mock/v1/")
-    String getResponse1();
+
 }

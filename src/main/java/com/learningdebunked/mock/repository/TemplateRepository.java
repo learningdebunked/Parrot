@@ -2,7 +2,10 @@ package com.learningdebunked.mock.repository;
 
 import com.learningdebunked.mock.model.Templates;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author Kapil
@@ -11,4 +14,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TemplateRepository extends JpaRepository<Templates, Long> {
+    List<Templates> findByEndpoint(@Param("endpoint") String endpoint);
 }
