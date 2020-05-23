@@ -1,32 +1,33 @@
 package com.learningdebunked.mock;
 
-import com.learningdebunked.mock.service.FileWatcherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import java.io.IOException;
+import org.springframework.web.servlet.DispatcherServlet;
 
 @SpringBootApplication
-@EnableAspectJAutoProxy(proxyTargetClass=true)
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class MockApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MockApplication.class, args);
     }
 
-    @Component
-    public static class FileWatcher {
+    @Bean
+    public ServletRegistrationBean dispatcherRegistration()
+    {
+        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet());
+        registration.addUrlMappings("/");
+        System.out.println("*************** I landed in the dispatcher servlet****************");
+        return registration;
+    }
 
-        @Autowired
-        FileWatcherService fileWatcherService;
-
-        @PostConstruct
-        public void initialize() throws IOException {
-            fileWatcherService.monitor();
-        }
+    @Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
+    public DispatcherServlet dispatcherServlet()
+    {
+        return new DispatcherServlet();
     }
 }

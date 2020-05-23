@@ -2,6 +2,10 @@ package com.learningdebunked.mock.controller;
 
 import com.learningdebunked.mock.api.MockAPI;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Kapil
@@ -10,8 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MockAPIController implements MockAPI {
 
-    @Override
     public String getResponse() {
+/*        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String uri = request.getRequestURI();
+        System.out.println("The request URL is:" + request.getRequestURL());*/
         return "Kapil";
+    }
+
+    @Override
+    public String getResponse1() {
+        System.out.println("*******************Testing************");
+        return "Reddy";
     }
 }

@@ -18,7 +18,6 @@ public class LoggingAspect {
 
     @Before("execution(* com.learningdebunked.mock.service.FileWatcherService.*(..))")
     public void logBeforeAllMethods(JoinPoint joinPoint) {
-
         //TODO this has to be debug logs
         System.out.println("Entering method:" + joinPoint.getSignature().getName());
     }

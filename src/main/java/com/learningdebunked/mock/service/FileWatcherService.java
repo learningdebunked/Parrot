@@ -64,6 +64,7 @@ public class FileWatcherService {
      * @param dirUrl
      * @return
      */
+    //TODO
     private boolean checkIfFilesExist(String dirUrl) {
         return false;
     }
@@ -83,8 +84,12 @@ public class FileWatcherService {
         WatchKey key;
         while ((key = watchService.take()) != null) {
             for (WatchEvent<?> event : key.pollEvents()) {
-                if (event.context().toString().endsWith(".template")) {
-                    fileProcessor.process(filePath,event.context().toString());
+                if (event.context().toString().endsWith(".template") || event.context().toString().endsWith(".json")) {
+                    fileProcessor.process(filePath, event.context().toString());
+
+                    //TODO invoke a factory based on .template or based on .json
+                    // A json would mean the end point may not have changed just the response changed
+                    // A template would mean we have a new resource
                 }
             }
             key.reset();

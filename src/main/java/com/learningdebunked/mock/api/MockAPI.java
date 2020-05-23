@@ -9,4 +9,7 @@ public interface MockAPI {
 
     @GetMapping("/mock/v1/*")
     String getResponse();
+
+    @GetMapping("/mock/v1/")
+    String getResponse1();
 }
