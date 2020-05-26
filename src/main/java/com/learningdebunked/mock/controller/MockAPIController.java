@@ -15,9 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 public class MockAPIController implements MockAPI {
 
     public String getResponse() {
-/*        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String uri = request.getRequestURI();
-        System.out.println("The request URL is:" + request.getRequestURL());*/
-        return "Kapil";
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String srchKey = request.getAttribute("lookupResourceKey").toString();
+        return srchKey;
     }
 }
