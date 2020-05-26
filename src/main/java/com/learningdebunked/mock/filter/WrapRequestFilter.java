@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * This class manipulates the path
+ * <p>
+ * For example: /mock/v1/abc/1 is always manipulated to land at /mock/v1
+ *
  * @author Kapil
  * @created 25/05/2020 - 5:41 PM
  * @project mock
@@ -24,8 +28,8 @@ public class WrapRequestFilter extends OncePerRequestFilter {
         if (path != null) {
             wrapper.setContextPath(request.getContextPath() + path);
             String newPath = request.getServletPath().substring(path.length());
-            request.setAttribute("lookupResourceKey",newPath);
-            if (newPath.length()!= 0) {
+            request.setAttribute("lookupResourceKey", newPath);
+            if (newPath.length() != 0) {
                 newPath = "/";
             }
             wrapper.setServletPath("/mock/v1/");
