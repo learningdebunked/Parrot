@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * This class manipulates the path
  * <p>
- * For example: /mock/v1/abc/1 is always manipulated to land at /mock/v1
+ * For example: /mock/v1/abc/1 is always manipulated to land at /mock/v1 to not error out
  *
  * @author Kapil
  * @created 25/05/2020 - 5:41 PM
