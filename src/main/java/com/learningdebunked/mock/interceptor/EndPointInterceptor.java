@@ -33,18 +33,7 @@ public class EndPointInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler,
-            ModelAndView modelAndView) throws Exception {
 
-/*        //path that errored out
-        String uri = modelAndView.getModelMap().getAttribute("path").toString();
-
-        //TODO real bad way of coding...imo
-        String newURI = uri.substring(5); //count / + app name mock
-        List<Templates> templatesList = templateRepository.findByEndpoint(newURI);
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.print(templatesList.get(0).getJsonTemplate());
-        out.flush();*/
     }
 
     @Override
