@@ -21,9 +21,6 @@ public class EndPointInterceptor implements HandlerInterceptor {
     @Value("${dir.url}")
     String dirUrl;
 
-    @Autowired
-    TemplateRepository templateRepository;
-
     @Override
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
