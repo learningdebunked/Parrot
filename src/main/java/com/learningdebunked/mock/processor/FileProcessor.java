@@ -51,12 +51,12 @@ public class FileProcessor {
     public void process(String filePath, String fileName) throws IOException {
         Path path = Paths.get(filePath);
         String content = new String(Files.readAllBytes(Paths.get(path + "/" + fileName)));
-        //TODO convert to JSON Objet again
+        //TODO convert to JSON Object again
         final ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(content);
         Templates templates = new Templates();
         templates.setJsonTemplate(content);
-        templates.setEndpoint(node.get("endpoint").toPrettyString());
+        templates.setEndpoint(node.get("endpoint").textValue());
         repository.save(templates);
         System.out.println("entity saved");
     }

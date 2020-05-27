@@ -1,7 +1,5 @@
 package com.learningdebunked.mock.interceptor;
 
-import com.learningdebunked.mock.repository.TemplateRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
