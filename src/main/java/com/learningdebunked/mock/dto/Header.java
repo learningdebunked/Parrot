@@ -1,23 +1,26 @@
 package com.learningdebunked.mock.dto;
 
-public class Header {
+/**
+ * DTO to capture the headers
+ */
+public class Header<K,V> {
 
-    private String key;
-    private String value;
+    private K key;
+    private V value;
 
-    public String getKey() {
+    public K getKey() {
         return key;
     }
 
-    public void setKey(String key) {
+    public void setKey(K key) {
         this.key = key;
     }
 
-    public String getValue() {
+    public V getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(V value) {
         this.value = value;
     }
 }
