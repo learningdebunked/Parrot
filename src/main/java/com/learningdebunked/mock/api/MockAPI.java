@@ -1,6 +1,7 @@
 package com.learningdebunked.mock.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * API Interface to create and setup the app end points
@@ -8,7 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface MockAPI {
 
     @GetMapping("/mock/v1/")
-    String getResponse();
+    String getGetResponse();
 
-
+    @PostMapping("/mock/v1")
+    String getPostResponse();
 }

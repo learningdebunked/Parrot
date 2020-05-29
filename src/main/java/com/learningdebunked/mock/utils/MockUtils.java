@@ -3,6 +3,8 @@ package com.learningdebunked.mock.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * @author Kapil
@@ -26,5 +28,15 @@ public class MockUtils {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * Reads the contents of the file and returns a string representation
+     *
+     * @param file
+     * @return
+     */
+    public static String readFile(String file) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(file)));
     }
 }

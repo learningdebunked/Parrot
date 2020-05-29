@@ -78,10 +78,10 @@ public class FileWatcherService {
                 if (event.context().toString().endsWith(".template")) {
                     fileProcessor.processTemplateFile(dirPath + "/" + event.context().toString());
                 }
-                //if the file is .res then write the updates to response entity
+               /* This is not needed atm as we are not persisting any template changes to db , instead we are using filesystem as a datastore//if the file is .res then write the updates to response entity
                 if (event.context().toString().endsWith(".res")) {
                     fileProcessor.processResFile(dirPath + "/" + event.context().toString());
-                }
+                }*/
             }
             key.reset();
         }

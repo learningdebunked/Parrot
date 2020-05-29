@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learningdebunked.mock.model.Templates;
 import com.learningdebunked.mock.repository.TemplateRepository;
+import com.learningdebunked.mock.utils.MockUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,13 @@ public class FileProcessor {
             pool.execute(() -> {
                 try {
                     //if the extension is .res
-                    if (FilenameUtils.getExtension(filename).equals("res")) {
+                    //This is not needed as of now because we are using file system as a datastore
+                   /* if (FilenameUtils.getExtension(filename).equals("res")) {
                         processResFile(filePath);
-                    }
+                    }*/
+
                     //if the extension is .template
-                    else if (FilenameUtils.getExtension(filename).equals("template")) {
+                    if (FilenameUtils.getExtension(filename).equals("template")) {
                         processTemplateFile(filePath);
                     } else {
                         //log an error about junk files in the template
@@ -76,6 +79,7 @@ public class FileProcessor {
         if (templatesList.size() != 0) {
             Templates template = templatesList.get(0);
             template.setFile(filename);
+            template.setUri(endpoint);
             templateRepository.save(template);
             //update the res in res entity
         } else {
@@ -93,15 +97,18 @@ public class FileProcessor {
     }
 
     /**
-     * Method to process the files ending with .res
+     * Method to read a file at a give path
      *
-     * @param filePath
+     * @param file
+     * @return
      */
-    public void processResFile(String filePath) throws IOException {
-        Path path = Paths.get(filePath);
-        String content = new String(Files.readAllBytes(path));
-        final ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(content);
-
+    public String extractTemplate(String file) {
+        try {
+            return MockUtils.readFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO Log and handle the exception
+        }
+        return null;
     }
 }
