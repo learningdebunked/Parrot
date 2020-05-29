@@ -79,7 +79,6 @@ public class FileProcessor {
         if (templatesList.size() != 0) {
             Templates template = templatesList.get(0);
             template.setFile(filename);
-            template.setUri(endpoint);
             templateRepository.save(template);
             //update the res in res entity
         } else {
@@ -88,10 +87,6 @@ public class FileProcessor {
             template.setUri(endpoint);
             template.setVerb(verb);
             templateRepository.save(template);
-
-            //process the .res file as in the filename , it is expected to be available in the same directory , if not available , then capture the error in the response entity
-            //create the template in templates entity and res in response entity
-
         }
 
     }

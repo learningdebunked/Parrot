@@ -20,7 +20,7 @@ public class EndPointsErrorController implements ErrorController {
     @ResponseBody
     public String handleError(HttpServletRequest request, HttpServletResponse response) throws  Exception{
         //TODO if at all we ever landup here , return something graceful
-        return  "abc";
+        return  "Template not found either .template or .res file missing";
     }
 
     @Override

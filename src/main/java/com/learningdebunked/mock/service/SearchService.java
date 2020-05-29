@@ -1,9 +1,14 @@
 package com.learningdebunked.mock.service;
 
 import com.learningdebunked.mock.model.Templates;
+import com.learningdebunked.mock.processor.FileProcessor;
 import com.learningdebunked.mock.repository.TemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 /**
  * @author Kapil
@@ -19,15 +24,49 @@ import org.springframework.stereotype.Service;
 @Service
 public class SearchService {
 
+    private Enumeration<String> headerNames;
+    private String queryString;
+    private String resourceId;
+
+
     @Autowired
     private TemplateRepository templateRepository;
 
+    @Value("${dir.url}")
+    private String dirPath;
+
+    @Autowired
+    private FileProcessor fileProcessor;
+
     /**
      * Find the template from the repository based on the search key
+     *
      * @param searchKey
      * @return
      */
-    public Templates findTemplate(String searchKey){
+    private Templates findTemplate(String searchKey) {
         return templateRepository.findByUri(searchKey).get(0);
+    }
+
+    /**
+     * Method to extract the temp
+     * @param request
+     * @return
+     */
+    public String extractTemplate(HttpServletRequest request) {
+        preprocessRequest(request);
+        String templateFileName = findTemplate(this.resourceId).getFile();
+        return fileProcessor.extractTemplate(dirPath + "/" + templateFileName);
+    }
+
+    /**
+     * This can be used to carry out any additional logic if needed
+     *
+     * @param request
+     */
+    private void preprocessRequest(HttpServletRequest request) {
+        this.headerNames = request.getHeaderNames();
+        this.queryString = request.getQueryString();
+        this.resourceId = request.getAttribute("lookupResourceKey").toString();
     }
 }

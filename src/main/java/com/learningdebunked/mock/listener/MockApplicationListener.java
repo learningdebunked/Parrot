@@ -20,7 +20,6 @@ public class MockApplicationListener implements ApplicationListener<ContextRefre
     FileWatcherService fileWatcherService;
 
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        System.out.println("*******Context fully loaded******** we can now invoke file watcher");
         fileWatcherService.monitor();
     }
 }

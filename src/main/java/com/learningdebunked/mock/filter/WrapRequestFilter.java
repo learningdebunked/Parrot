@@ -25,6 +25,7 @@ public class WrapRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         ServletContextFacadeRequestWrapper wrapper = new ServletContextFacadeRequestWrapper(request);
         String path = getMatchingContextPathForRequest(request);
+        request.getHeaderNames();
         if (path != null) {
             wrapper.setContextPath(request.getContextPath() + path);
             String newPath = request.getServletPath().substring(path.length());
