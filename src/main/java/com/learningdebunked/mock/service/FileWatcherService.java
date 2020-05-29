@@ -21,9 +21,6 @@ public class FileWatcherService {
     @Value("${dir.url}")
     String dirUrl;
 
-    @Value("${dev.mode}")
-    String mode;
-
     @Autowired
     FileProcessor fileProcessor;
 

@@ -102,6 +102,7 @@ public class FileProcessor {
             return MockUtils.readFile(file);
         } catch (IOException e) {
             e.printStackTrace();
+            //TODO if the record mode is on , hit the actual endpoint and get the response and save it with file name
             //TODO Log and handle the exception
         }
         return null;
