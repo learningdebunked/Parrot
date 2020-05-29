@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.Enumeration;
 
 /**
@@ -56,7 +57,13 @@ public class SearchService {
     public String extractTemplate(HttpServletRequest request) {
         preprocessRequest(request);
         String templateFileName = findTemplate(this.resourceId).getFile();
-        return fileProcessor.extractTemplate(dirPath + "/" + templateFileName);
+        if (new File(dirPath, templateFileName).exists()){
+            return fileProcessor.extractTemplate(dirPath + "/" + templateFileName);
+        }else{
+            //TODO
+            //if the record mode is on , hit the actual end point and get the response
+        }
+        return null;
     }
 
     /**
