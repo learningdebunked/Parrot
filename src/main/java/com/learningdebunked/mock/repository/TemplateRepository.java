@@ -13,5 +13,6 @@ import java.util.List;
  */
 @Repository
 public interface TemplateRepository extends JpaRepository   <Templates, Long> {
-    List<Templates> findByEndpoint(String endpoint);
+    List<Templates> findByUri(String uri);
+    List<Templates> findByUriAndVerb(String uri , String verb);
 }

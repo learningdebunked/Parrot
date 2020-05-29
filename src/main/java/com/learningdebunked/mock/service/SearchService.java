@@ -24,10 +24,10 @@ public class SearchService {
 
     /**
      * Find the template from the repository based on the search key
-     * @param searchKey ex: /abc/1/
+     * @param searchKey
      * @return
      */
     public Templates findTemplate(String searchKey){
-        return templateRepository.findByEndpoint(searchKey).get(0);
+        return templateRepository.findByUri(searchKey).get(0);
     }
 }

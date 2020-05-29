@@ -14,9 +14,9 @@ import javax.persistence.Id;
 public class Templates {
 
     private long id;
-    private String endpoint;
-    private String jsonTemplate;
-    private String httpMethod;
+    private String uri;
+    private String file;
+    private String verb;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,28 +28,28 @@ public class Templates {
         this.id = id;
     }
 
-    public String getEndpoint() {
-        return endpoint;
+    public String getUri() {
+        return uri;
     }
 
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
-    public String getJsonTemplate() {
-        return jsonTemplate;
+    public String getVerb() {
+        return verb;
     }
 
-    public void setJsonTemplate(String jsonTemplate) {
-        this.jsonTemplate = jsonTemplate;
+    public void setVerb(String verb) {
+        this.verb = verb;
     }
 
-    public String getHttpMethod() {
-        return httpMethod;
+    public String getFile() {
+        return file;
     }
 
-    public void setHttpMethod(String httpMethod) {
-        this.httpMethod = httpMethod;
+    public void setFile(String file) {
+        this.file = file;
     }
 
 }

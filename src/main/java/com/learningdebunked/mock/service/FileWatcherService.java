@@ -21,6 +21,9 @@ public class FileWatcherService {
     @Value("${dir.url}")
     String dirUrl;
 
+    @Value("${dev.mode}")
+    String mode;
+
     @Autowired
     FileProcessor fileProcessor;
 
@@ -30,12 +33,13 @@ public class FileWatcherService {
     public void monitor() {
         try {
 
-            //monitor the files and  call the propogations service
+            //monitor the files and  call the propogation service
             //validations can all be aspects
             System.out.println("***** Directory being monitored is:********" + dirUrl);
             //TODO checkifDirExists , this can be an aspect
             //TOO another aspect could be if the directory exists and if the mode is dev mode , we need to validate if the files are valid json , if not send an email to the the developer
             //sending an email can also be an after returning aspect , sending an event , either email or slack notification
+
             if (checkIfFilesExist(dirUrl)) {
                 //TODO decide if u want to use Executors.newWorkStealingPool(10) instead of fixed thread pool
                 ExecutorService pool = Executors.newFixedThreadPool(10);
@@ -47,9 +51,9 @@ public class FileWatcherService {
                 //TODO this should happen only if the profile in which the server is running is a dev profile
                 //TODO add profile prod.mode = false
 
-            } else {
-                //This gets executed in the profile "prod.mode = true"
+                //Once the initial setup is done , the service should start watching the directory for changes
                 readStream(dirUrl);
+
             }
 
         } catch (IOException | InterruptedException e) {
@@ -64,18 +68,18 @@ public class FileWatcherService {
      * @param dirUrl
      * @return
      */
-    //TODO
+    //TODO make sure there are only files with .json and .template
     private boolean checkIfFilesExist(String dirUrl) {
-        return false;
+        return Files.exists(Paths.get(dirUrl));
     }
 
     /**
      * Method to read the files created, updated or modified in the given directory
      */
-    private void readStream(String filePath) throws IOException, InterruptedException {
+    private void readStream(String dirPath) throws IOException, InterruptedException {
         WatchService watchService
                 = FileSystems.getDefault().newWatchService();
-        Path path = Paths.get(filePath);
+        Path path = Paths.get(dirPath);
         path.register(
                 watchService,
                 StandardWatchEventKinds.ENTRY_CREATE,
@@ -84,12 +88,13 @@ public class FileWatcherService {
         WatchKey key;
         while ((key = watchService.take()) != null) {
             for (WatchEvent<?> event : key.pollEvents()) {
-                if (event.context().toString().endsWith(".template") || event.context().toString().endsWith(".json")) {
-                    fileProcessor.process(filePath, event.context().toString());
-
-                    //TODO invoke a factory based on .template or based on .json
-                    // A json would mean the end point may not have changed just the response changed
-                    // A template would mean we have a new resource
+                //if file is .template then write the updates to templates entity
+                if (event.context().toString().endsWith(".template")) {
+                    fileProcessor.processTemplateFile(dirPath + "/" + event.context().toString());
+                }
+                //if the file is .res then write the updates to response entity
+                if (event.context().toString().endsWith(".res")) {
+                    fileProcessor.processResFile(dirPath + "/" + event.context().toString());
                 }
             }
             key.reset();

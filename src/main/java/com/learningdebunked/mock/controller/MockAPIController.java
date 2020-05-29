@@ -22,6 +22,6 @@ public class MockAPIController implements MockAPI {
     public String getResponse() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         String srchKey = request.getAttribute("lookupResourceKey").toString();
-        return searchService.findTemplate(srchKey).getJsonTemplate();
+        return searchService.findTemplate(srchKey).getFile();
     }
 }
