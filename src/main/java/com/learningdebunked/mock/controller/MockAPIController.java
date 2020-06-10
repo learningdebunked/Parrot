@@ -4,13 +4,10 @@ import com.learningdebunked.mock.api.MockAPI;
 import com.learningdebunked.mock.filter.MRequest;
 import com.learningdebunked.mock.filter.MThreadLocalObjectStorage;
 import com.learningdebunked.mock.service.SearchService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  * @author Kapil
