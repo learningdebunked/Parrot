@@ -29,6 +29,9 @@ public class WrapRequestFilter extends OncePerRequestFilter {
         if (path != null) {
             wrapper.setContextPath(request.getContextPath() + path);
             String newPath = request.getServletPath().substring(path.length());
+            MRequest mRequest = new MRequest();
+            mRequest.setPath(newPath);
+            MThreadLocalObjectStorage.getThreadLocal().set(mRequest);
             request.setAttribute("lookupResourceKey", newPath);
             if (newPath.length() != 0) {
                 newPath = "/";

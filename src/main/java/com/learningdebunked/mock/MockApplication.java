@@ -8,6 +8,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class MockApplication {
 
+    //TODO integrate swagger aggregator using inspector
+    //compare mock service and wire mock
     public static void main(String[] args) {
         SpringApplication.run(MockApplication.class, args);
     }

@@ -8,7 +8,13 @@ import java.util.List;
  */
 public class ServiceRequest {
 
-    List<Item> item;
+    Url url;
 
+    public Url getUrl() {
+        return url;
+    }
 
+    public void setUrl(Url url) {
+        this.url = url;
+    }
 }

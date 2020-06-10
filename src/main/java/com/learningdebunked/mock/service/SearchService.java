@@ -1,8 +1,10 @@
 package com.learningdebunked.mock.service;
 
+import com.learningdebunked.mock.dto.ServiceRequest;
 import com.learningdebunked.mock.model.Templates;
 import com.learningdebunked.mock.processor.FileProcessor;
 import com.learningdebunked.mock.repository.TemplateRepository;
+import exceptions.MissingTemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -55,8 +57,8 @@ public class SearchService {
      * @return
      */
     public String extractTemplate(HttpServletRequest request) {
-        preprocessRequest(request);
-        String templateFileName = findTemplate(this.resourceId).getFile();
+       ServiceRequest serviceRequest =  preprocessRequest(request);
+       String templateFileName = findTemplate(serviceRequest.getUrl().getPath()).getFile();
         if (new File(dirPath, templateFileName).exists()){
             return fileProcessor.extractTemplate(dirPath + "/" + templateFileName);
         }else{
@@ -71,9 +73,18 @@ public class SearchService {
      *
      * @param request
      */
-    private void preprocessRequest(HttpServletRequest request) {
+    private ServiceRequest preprocessRequest(HttpServletRequest request) {
+        ServiceRequest serviceRequest = new ServiceRequest();
+        try{
+            serviceRequest.getUrl().setPath(request.getAttribute("lookupResourceKey").toString());
+        }catch (NullPointerException npe){
+            throw new MissingTemplateException("no template configured");
+        }
+
+
         this.headerNames = request.getHeaderNames();
         this.queryString = request.getQueryString();
-        this.resourceId = request.getAttribute("lookupResourceKey").toString();
+        //this.resourceId = ;
+        return null;
     }
 }

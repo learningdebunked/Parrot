@@ -71,7 +71,7 @@ public class FileProcessor {
         String content = new String(Files.readAllBytes(path));
         final ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(content);
-        endpoint = node.get("endpoint").textValue();
+        endpoint = node.get("path").textValue();
         verb = node.get("verb").textValue();
         filename = node.get("filename").textValue();
         List<Templates> templatesList = templateRepository.findByUriAndVerb(endpoint, verb);
