@@ -26,10 +26,10 @@ Knowledge of the following technologies and frameworks
 
 ### Build
 
-   gradlew clean build
+*  gradlew clean build
 
 
 
-### How to Setup
+#### How to Setup
 
 
