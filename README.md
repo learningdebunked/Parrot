@@ -1,5 +1,5 @@
-# Parrot MockService
-Parrot service allows you to mock any server or service.
+# Parrot 
+Parrot is a mock service which allows us to mock any server or service.
 
 This is useful in the following scenarios:
 
