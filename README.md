@@ -1,7 +1,7 @@
 # MockService
 Spins up a light weight spring boot based mock service  
 
-#Prerequisites
+# Prerequisites
 Knowledge of the following technologies and frameworks
 
 * Java8
