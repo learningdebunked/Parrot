@@ -45,7 +45,7 @@ Knowledge of the following technologies and frameworks
 
 ## How to Setup
 
-*  Create a folder /templates
+*  Create a folder named templates
 *  Create a template file with extension .temp
 *  Create a json file , a sample response file to be served by the rest end points with .json extension
-*  Move the json file and template file to the folder. /templates
+*  Move the json file and template file to the folder templates
