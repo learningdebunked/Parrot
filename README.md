@@ -3,9 +3,10 @@ Parrot service allows you to mock any server or service.
 
 This is useful in the following scenarios:
 
-Automated testing of FE components 
-Automated testing in isolation of the  system-under-test to ensure tests run reliably and only fail when there is a genuine bug.
+* Automated testing of FE components 
+* Automated testing in isolation of the  system-under-test to ensure tests run reliably and only fail when there is a genuine bug.
 
+The service works the following way:
 
 * Find matching template  and return the json repsonse
 * If no matching template is found , based on template configuration proxy the request and get response
