@@ -1,5 +1,5 @@
-# MockService
-Spins up a light weight spring boot based mock service  
+# Parrot MockService
+Spins up a light weight spring boot based mock service
 
 # Prerequisites
 Knowledge of the following technologies and frameworks
@@ -30,7 +30,7 @@ Knowledge of the following technologies and frameworks
 
 
 
-#### How to Setup
+## How to Setup
 
 *  Create a folder /templates
 *  Create a template file with extension .temp
