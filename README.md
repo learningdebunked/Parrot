@@ -1,5 +1,5 @@
 # MockService
-Spin up a light weight spring boot based mock service  
+Spins up a light weight spring boot based mock service  
 
 #Prerequisites
 Knowledge of the following technologies and frameworks
