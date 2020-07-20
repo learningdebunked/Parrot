@@ -24,8 +24,7 @@ Knowledge of the following technologies and frameworks
 ## About / Synopsis
 
 * Spin up a light weight spring boot based mock service
-* Project status: working/prototype
-* Nuxeo Support
+
 
 
 
