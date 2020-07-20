@@ -37,8 +37,7 @@ public class MockAppError {
         );
     }
 
-    // utility method to return a map of serialized root attributes,
-    // see the last part of the guide for more details
+    // utility method to return a map of serialized root attributes
     public Map<String, Object> toAttributeMap() {
         return Map.of(
                 "apiVersion", apiVersion,
