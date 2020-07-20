@@ -1,9 +1,9 @@
 # Parrot MockService
 Spins up a light weight spring boot based mock service. For each request the following happens
 
-*. find matching template  and return the json repsonse
-*. if no matching template is found , based on template configuration proxy the request and get response
-*. If no proxy header attribute is set return a error code with error message
+* Find matching template  and return the json repsonse
+* If no matching template is found , based on template configuration proxy the request and get response
+* If no proxy header attribute is set return a error code with error message
 
 # Prerequisites
 Knowledge of the following technologies and frameworks
