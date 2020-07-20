@@ -24,7 +24,7 @@ Knowledge of the following technologies and frameworks
 
 
 
-### Build
+## Build
 
 *  gradlew clean build
 
